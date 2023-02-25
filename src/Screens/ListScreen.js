@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Text, View, FlatList } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
+import ProductCard from "../Components/ProductCard";
 
 const DATA = [
   {
@@ -22,7 +23,7 @@ const ListScreen = () => {
     <SafeAreaView>
       <FlatList
         data={DATA}
-        renderItem={(elem) => <Text>{elem.item.product_name}</Text>}
+        renderItem={(elem) => <ProductCard />}
         // keyExtractor={(elem) => elem.item.product_ID}
       />
     </SafeAreaView>
