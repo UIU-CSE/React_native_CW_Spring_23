@@ -13,6 +13,12 @@ const HomeScreen = (props) => {
             props.navigation.navigate("List");
           }}
         />
+        <Button
+          title="Go To Counter Page"
+          onPress={() => {
+            props.navigation.navigate("Counter");
+          }}
+        />
       </View>
     </SafeAreaView>
   );
