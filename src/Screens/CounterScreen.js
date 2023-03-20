@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Button, Text, View, StyleSheet } from "react-native";
+import { Button, Text, View, StyleSheet, TextInput } from "react-native";
+import axios from "axios";
 
 const CounterScreen = () => {
   const [counter, setCounter] = useState(0);
+  const [name, setName] = useState("");
+  const [countryPred, setCountryPred] = useState("");
 
-  useEffect(() => {
-    console.log("For Branch Test");
-  }, []);
+  const predictCountry = () => {
+    axios.get(`https://api.nationalize.io?name=${name}`).then((res) => {
+      const pred = res.data["country"][0]["country_id"];
+      console.log(pred);
+      setCountryPred(pred);
+    });
+  };
+
   return (
     <View style={styles.viewStyle}>
       <Text style={styles.textStyle}>{counter}</Text>
@@ -23,6 +31,22 @@ const CounterScreen = () => {
             setCounter(counter - 1);
           }}
         />
+      </View>
+      <View>
+        <TextInput
+          placeholder="Enter Your Name"
+          value={name}
+          onChangeText={(text) => {
+            setName(text);
+          }}
+        />
+        <Button
+          title="Submit"
+          onPress={() => {
+            predictCountry();
+          }}
+        />
+        <Text>{countryPred}</Text>
       </View>
     </View>
   );
