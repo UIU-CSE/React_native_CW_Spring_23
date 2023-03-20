@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Text, View, StyleSheet } from "react-native";
 
 const CounterScreen = () => {
   const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    console.log("For Branch Test");
+  }, []);
   return (
     <View style={styles.viewStyle}>
       <Text style={styles.textStyle}>{counter}</Text>
