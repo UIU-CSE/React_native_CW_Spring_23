@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button, Text, View, StyleSheet, TextInput } from "react-native";
 import axios from "axios";
+import { getUser } from "../Services/user.service";
 
 const CounterScreen = () => {
   const [counter, setCounter] = useState(0);
   const [name, setName] = useState("");
   const [countryPred, setCountryPred] = useState("");
+  const [users, setUsers] = useState([]);
 
   const predictCountry = () => {
     axios.get(`https://api.nationalize.io?name=${name}`).then((res) => {
@@ -14,6 +16,12 @@ const CounterScreen = () => {
       setCountryPred(pred);
     });
   };
+  useEffect(() => {
+    getUser().then((res) => {
+      console.log(res.data);
+      setUsers(res.data);
+    });
+  }, []);
 
   return (
     <View style={styles.viewStyle}>
@@ -47,6 +55,15 @@ const CounterScreen = () => {
           }}
         />
         <Text>{countryPred}</Text>
+        {users.length > 0 ? (
+          <View>
+            <Text>{users[0].email}</Text>
+            <Text>{users[1].email}</Text>
+            <Text>{users[2].email}</Text>
+          </View>
+        ) : (
+          <></>
+        )}
       </View>
     </View>
   );
